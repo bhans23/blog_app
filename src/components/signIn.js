@@ -1,12 +1,10 @@
 import React, { useState, useRNameef, useEffect, useContext } from "react";
-import AuthContext from "../context/AuthProvider";
-import Home from "./home.js";
 import axios from "../api/axios";
 
 const LOGIN_URL = "/users/sign_in";
 
 const SignIn = () => {
-  const { setAuth } = useContext(AuthContext);
+  
 
   const [state, setState] = useState({
     password: " ",
@@ -28,14 +26,15 @@ const SignIn = () => {
     e.preventDefault();
 
     axios
-      .post(
-        LOGIN_URL,
-        JSON.stringify({
-          user: { email: state.email, password: state.password },
-        })
-      )
+      .post(LOGIN_URL, {
+        user: { email: state.email, password: state.password },
+      })
       .then((response) => {
-        console.log(response);
+      
+        localStorage.setItem("token",response.headers.authorization)
+        response
+          ? setState({ ...state, success: true })
+          : setState({ ...state, success: false });
       })
       .catch((error) => {
         console.log(error);
@@ -52,7 +51,6 @@ const SignIn = () => {
         </div>
       ) : (
         <div>
-          {console.log(state)}
           <p className={state.errMsg ? "errmsg" : "offscreen"}>
             {state.errMsg}
           </p>

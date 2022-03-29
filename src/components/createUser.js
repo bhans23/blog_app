@@ -19,26 +19,14 @@ const CreateUser = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(
-      JSON.stringify({
+    axios
+      .post(REGISTER_URL, {
         user: {
           email: state.email,
           password: state.password,
           display_name: state.userName,
         },
       })
-    );
-    axios
-      .post(
-        REGISTER_URL,
-        JSON.stringify({
-          user: {
-            email: state.email,
-            password: state.password,
-            display_name: state.userName,
-          },
-        })
-      )
       .then((response) => {
         console.log(response);
       })
@@ -81,6 +69,7 @@ const CreateUser = () => {
           type="password"
           id="password"
           name="password"
+          minLength='6'
           required
           onChange={handleChange}
         />
