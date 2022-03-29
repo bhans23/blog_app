@@ -1,4 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
+import axios from "../api/axios";
+
+const REGISTER_URL = "/users";
 
 const CreateUser = () => {
   const [state, setState] = useState({
@@ -16,6 +19,32 @@ const CreateUser = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log(
+      JSON.stringify({
+        user: {
+          email: state.email,
+          password: state.password,
+          display_name: state.userName,
+        },
+      })
+    );
+    axios
+      .post(
+        REGISTER_URL,
+        JSON.stringify({
+          user: {
+            email: state.email,
+            password: state.password,
+            display_name: state.userName,
+          },
+        })
+      )
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   useEffect(() => {
@@ -25,8 +54,8 @@ const CreateUser = () => {
     <div>
       <p>{state.errMsg}</p>
       <h1>CreateUser</h1>
-      <form>
-        <label for="email">Email</label>
+      <form onSubmit={handleSubmit}>
+        <label htmlFor="email">Email</label>
         <br />
         <input
           type="email"
@@ -36,7 +65,7 @@ const CreateUser = () => {
           onChange={handleChange}
         />
         <br />
-        <label for="userName">User Name</label>
+        <label htmlFor="userName">User Name</label>
         <br />
         <input
           type="text"
@@ -46,7 +75,7 @@ const CreateUser = () => {
           onChange={handleChange}
         />
         <br />
-        <label for="password">Password</label>
+        <label htmlFor="password">Password</label>
         <br />
         <input
           type="password"
@@ -56,7 +85,7 @@ const CreateUser = () => {
           onChange={handleChange}
         />
         <br />
-        <button onSubmit={handleSubmit}>Submit</button>
+        <input type="submit" value="Submit" />
       </form>
     </div>
   );

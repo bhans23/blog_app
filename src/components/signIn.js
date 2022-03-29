@@ -1,14 +1,12 @@
-import React, { useState, useRef, useEffect, useContext } from "react";
+import React, { useState, useRNameef, useEffect, useContext } from "react";
 import AuthContext from "../context/AuthProvider";
 import Home from "./home.js";
 import axios from "../api/axios";
 
-const LOGIN_URL = "https://brivity-react-exercise.herokuapp.com/users/sign_in";
+const LOGIN_URL = "/users/sign_in";
 
 const SignIn = () => {
   const { setAuth } = useContext(AuthContext);
-  const userRef = useRef();
-  const errRef = useRef();
 
   const [state, setState] = useState({
     password: " ",
@@ -16,10 +14,6 @@ const SignIn = () => {
     errMsg: " ",
     success: false,
   });
-
-  useEffect(() => {
-    userRef.current.focus();
-  }, []);
 
   useEffect(() => {
     setState({ ...state, errMsg: "" });
@@ -30,32 +24,22 @@ const SignIn = () => {
     setState({ ...state, [name]: value });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    try {
-      const response = await axios.post(
+
+    axios
+      .post(
         LOGIN_URL,
-        JSON.stringify({ userName: state.userName, password: state.password }),
-        {
-          header: { "Content-Type": "application/json" },
-          withCrendentials: true,
-        }
-      );
-      const accessToken = response?.data?.accessToken;
-      const roles = response?.data?.roles;
-      setState({ ...state, success: true, password: "", userName: "" });
-    } catch (err) {
-      if (!err?.response) {
-        setState({ ...state, errMsg: "no Response" });
-      }else if (err.response?.status === 401) {
-        setState({ ...state, errMsg: "Unauthorized" });
-      }else if (err.response?.status === 400) {
-        setState({ ...state, errMsg: "Missing Username or Password" });
-      }else{
-        setState({ ...state, errMsg: "Login failed" });
-      }
-    
-    }
+        JSON.stringify({
+          user: { email: state.email, password: state.password },
+        })
+      )
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (
@@ -69,18 +53,17 @@ const SignIn = () => {
       ) : (
         <div>
           {console.log(state)}
-          <p ref={errRef} className={state.errMsg ? "errmsg" : "offscreen"}>
+          <p className={state.errMsg ? "errmsg" : "offscreen"}>
             {state.errMsg}
           </p>
           <form onSubmit={handleSubmit}>
             <h1>Sign In</h1>
-            <label htmlFor="user">User Name</label>
+            <label htmlFor="email">Email</label>
             <br />
             <input
-              ref={userRef}
-              type="text"
-              id="userName"
-              name="userName"
+              type="email"
+              id="email"
+              name="email"
               required
               onChange={handleChange}
             />
