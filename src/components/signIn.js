@@ -1,11 +1,10 @@
 import React, { useState, useRNameef, useEffect, useContext } from "react";
 import axios from "../api/axios";
+import { Link } from "react-router-dom";
 
 const LOGIN_URL = "/users/sign_in";
 
 const SignIn = () => {
-  
-
   const [state, setState] = useState({
     password: " ",
     userName: " ",
@@ -30,8 +29,7 @@ const SignIn = () => {
         user: { email: state.email, password: state.password },
       })
       .then((response) => {
-      
-        localStorage.setItem("token",response.headers.authorization)
+        localStorage.setItem("token", response.headers.authorization);
         response
           ? setState({ ...state, success: true })
           : setState({ ...state, success: false });
@@ -46,8 +44,8 @@ const SignIn = () => {
       {state.success ? (
         <div>
           <h1>Logged in Foo</h1>
+          {window.location.reload()}
           <br />
-          <a href="/">Home</a>
         </div>
       ) : (
         <div>
@@ -78,6 +76,7 @@ const SignIn = () => {
             <br />
             <input type="submit" value="Submit" />
           </form>
+          <Link to="/createUser">Create User</Link>
         </div>
       )}
     </>
