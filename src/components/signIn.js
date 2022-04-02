@@ -2,7 +2,7 @@ import React, { useState, useRNameef, useEffect, useContext } from "react";
 import axios from "../api/axios";
 import { Link } from "react-router-dom";
 
-const LOGIN_URL = "/users/sign_in";
+const SIGNIN_URL = "/users/sign_in";
 
 const SignIn = () => {
   const [state, setState] = useState({
@@ -25,11 +25,14 @@ const SignIn = () => {
     e.preventDefault();
 
     axios
-      .post(LOGIN_URL, {
+      .post(SIGNIN_URL, {
         user: { email: state.email, password: state.password },
       })
       .then((response) => {
+        
         localStorage.setItem("token", response.headers.authorization);
+        localStorage.setItem("userId", response.data.id);
+        localStorage.setItem("display_name", response.data.display_name);
         response
           ? setState({ ...state, success: true })
           : setState({ ...state, success: false });

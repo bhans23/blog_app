@@ -1,17 +1,41 @@
 import { useState } from "react";
+import axios from "../api/axios";
+
+const POSTS_URL = "/posts";
 
 const CreatePost = () => {
-  const setState = useState({
+  const [state, setState] = useState({
     title: "",
     body: "",
   });
 
-  const handleChange = () => {};
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setState({ ...state, [name]: value });
+  };
   const handleSubmit = (e) => {
     e.preventDefault();
+    axios
+      .post(
+        POSTS_URL,
+        { post: { title: state.title, body: state.body } },
+        {
+          headers: {
+            Authorization: localStorage.getItem("token"),
+          },
+        }
+      )
+      .then((response) => {
+        console.log(response);
+      });
+    setState({
+      title: "",
+      body: "",
+    });
   };
   return (
     <>
+      {console.log(state)}
       <h1>Create Post</h1>
 
       <form onSubmit={handleSubmit}>
@@ -20,7 +44,8 @@ const CreatePost = () => {
         <input
           type="title"
           id="title"
-          name=""
+          name="title"
+          value={state.title}
           required
           onChange={handleChange}
         />
@@ -33,6 +58,7 @@ const CreatePost = () => {
           type="body"
           id="body"
           name="body"
+          value={state.body}
           required
           onChange={handleChange}
         />

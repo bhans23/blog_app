@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 
 const Nav = () => {
   const [token, setToken] = useState(localStorage.getItem("token"));
@@ -9,7 +9,13 @@ const Nav = () => {
   const logOut = () => {
     localStorage.clear();
     setToken(localStorage.getItem("token"));
-    window.location.reload()
+    window.location.reload();
+    return (
+      <>
+        <Navigate to="/" />
+        {/* <Link to="/">Home</Link> */}
+      </>
+    );
   };
   const menu = () => {
     if (token === null) {
@@ -29,13 +35,7 @@ const Nav = () => {
     }
   };
 
-  return (
-    <>
-      {console.log(typeof token)}
-      {console.log(token)}
-      {menu()}
-    </>
-  );
+  return <>{menu()}</>;
 };
 
 export default Nav;
