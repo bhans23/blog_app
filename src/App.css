@@ -10,3 +10,14 @@ a {
   margin: 10px;
 }
 
+.title {
+  border-style: double;
+  /* width:50%; */
+  margin-bottom: 10px;
+}
+
+.titleBox {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
