@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link, Routes, Route } from "react-router-dom";
 import CreatePost from "./createPost.js";
 import Posts from "./posts.js";
+import Post from "./post.js";
 
 const Blog = () => {
   const [token, setToken] = useState(localStorage.getItem("token"));
@@ -16,6 +17,7 @@ const Blog = () => {
           <Routes>
             <Route path="createPost" element={<CreatePost />} />
             <Route path="posts" element={<Posts />} />
+            <Route path="/posts/post" element={<Post />} />
           </Routes>
         </div>
       ) : (
