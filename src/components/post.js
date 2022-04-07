@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import axios from "../api/axios.js";
+import Comments from "./comments.js"
 
 const POSTS_URL = "/posts";
 
@@ -27,15 +28,24 @@ const Post = () => {
         user: post.user.display_name,
       });
     });
+
+   
   }, []);
 
   return (
     <>
-      <h1>{state.title}</h1>
-      <p>Created by:{state.user}</p>
-      <p>Created:{state.created}</p>
-      <p>Updated{state.updated}</p>
-      <p>{state.body}</p>
+  
+      <div>
+        <h1>{state.title}</h1>
+        <p>Created by:{state.user}</p>
+        <p>Created:{state.created}</p>
+        <p>Updated{state.updated}</p>
+        <p>{state.body}</p>
+      </div>
+      <div>
+        <h1>Comments</h1>
+        <Comments id={id}/>
+      </div>
     </>
   );
 };
