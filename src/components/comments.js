@@ -6,12 +6,18 @@ const POSTS_URL = "/posts";
 
 const Comments = ({ id }) => {
   const [comments, setComments] = useState([]);
+  const [page,setPage] = useState(1)
+  const [range,setRange] = useState('')
 
   useEffect(() => {
-    axios.get(`${POSTS_URL}/${id}/comments`).then((response) => {
+    axios.get(`${POSTS_URL}/${id}/comments?page=${page}`).then((response) => {
+        const range =
+        response.data.meta.total_entries / response.data.meta.per_page;
       setComments(response.data.comments);
+      setRange(range)
+      
     });
-  }, []);
+  }, [page]);
 
   return (
     <>

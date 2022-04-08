@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, Navigate } from "react-router-dom";
 import axios from "../api/axios.js";
-import Comments from "./comments.js"
+import Comments from "./comments.js";
 
 const POSTS_URL = "/posts";
 
@@ -28,13 +28,20 @@ const Post = () => {
         user: post.user.display_name,
       });
     });
-
-   
   }, []);
+
+  const deletePost = () => {
+    axios
+      .delete(`${POSTS_URL}/${id}`, {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      })
+      .then(() => <Navigate to="/" />);
+  };
 
   return (
     <>
-  
       <div>
         <h1>{state.title}</h1>
         <p>Created by:{state.user}</p>
@@ -42,9 +49,11 @@ const Post = () => {
         <p>Updated{state.updated}</p>
         <p>{state.body}</p>
       </div>
+      <button onClick={deletePost}>Delete</button>
+      <button>EDIT</button>
       <div>
         <h1>Comments</h1>
-        <Comments id={id}/>
+        <Comments id={id} />
       </div>
     </>
   );
