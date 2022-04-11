@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useLocation, Navigate } from "react-router-dom";
+import { useLocation, Navigate,useNavigate } from "react-router-dom";
 import axios from "../api/axios.js";
 import Comments from "./comments.js";
 
@@ -13,6 +13,7 @@ const Post = () => {
     updated: "",
     user: "",
   });
+  const navigate = useNavigate()
   const location = useLocation();
   const { id } = location.state;
 
@@ -37,7 +38,10 @@ const Post = () => {
           Authorization: localStorage.getItem("token"),
         },
       })
-      .then(() => <Navigate to="/" />);
+      .then(() => {
+        console.log(location.state.from)
+        navigate(location.state.from)
+      });
   };
 
   return (

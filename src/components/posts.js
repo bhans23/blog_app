@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "../api/axios.js";
 import Post from "./post.js";
 
-import { Link, Routes, Route } from "react-router-dom";
+import { Link, Routes, Route, useLocation } from "react-router-dom";
 
 const POSTS_URL = "/posts";
 
@@ -16,10 +16,10 @@ const MyPost = () => {
     currentPage: null,
     range: null,
   });
+  const location = useLocation();
 
   useEffect(() => {
     axios.get(`${POSTS_URL}?page=${state.page}`).then((response) => {
-     
       const range =
         response.data.meta.total_entries / response.data.meta.per_page;
 
@@ -67,15 +67,13 @@ const MyPost = () => {
 
       {state.posts.map((post) => (
         <div className="title">
-          <Link to="post" state={{ id: post.id }}>
+          <Link to="post" state={{ id: post.id, from: location }}>
             Title: {post.title}
           </Link>
           <p>Date Created: {Date(post.created_at)}</p>
           <p>Date Updated: {Date(post.updated_at)}</p>
-          
         </div>
       ))}
-     
 
       {pagePrevButton()}
       {pageNextButton()}

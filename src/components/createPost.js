@@ -1,5 +1,7 @@
 import { useState } from "react";
 import axios from "../api/axios";
+import Post from "./post.js";
+import { useNavigate, Navigate } from "react-router-dom";
 
 const POSTS_URL = "/posts";
 
@@ -7,12 +9,16 @@ const CreatePost = () => {
   const [state, setState] = useState({
     title: "",
     body: "",
+    id: null,
+    response: false
   });
 
+  const navigate = useNavigate();
   const handleChange = (e) => {
     const { name, value } = e.target;
     setState({ ...state, [name]: value });
   };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
@@ -26,16 +32,19 @@ const CreatePost = () => {
         }
       )
       .then((response) => {
-        console.log(response);
+        
+        setState({ ...state, id: response.data.post.id,response: true });
       });
     setState({
       title: "",
       body: "",
     });
   };
-  return (
+  return state.response ? (
+    <Navigate to="../posts/post" state={{id: state.id}}/>
+  ) : (
     <>
-      {console.log(state)}
+    {console.log(state)}
       <h1>Create Post</h1>
 
       <form onSubmit={handleSubmit}>
