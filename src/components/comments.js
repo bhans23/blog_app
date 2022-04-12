@@ -21,6 +21,7 @@ const Comments = ({ id }) => {
 
   return (
     <>
+ 
       {comments.map((comment) => (
        <Comment cmt={comment}/>
       ))}

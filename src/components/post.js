@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useLocation, Navigate,useNavigate } from "react-router-dom";
+import { useLocation, Navigate, useNavigate } from "react-router-dom";
 import axios from "../api/axios.js";
 import Comments from "./comments.js";
 
@@ -13,7 +13,7 @@ const Post = () => {
     updated: "",
     user: "",
   });
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const location = useLocation();
   const { id } = location.state;
 
@@ -39,9 +39,12 @@ const Post = () => {
         },
       })
       .then(() => {
-        console.log(location.state.from)
-        navigate(location.state.from)
+        navigate("/blog/posts");
       });
+  };
+  const editPost = () => {
+    navigate("/blog/editPost", {state: {id: id}});
+    
   };
 
   return (
@@ -54,7 +57,7 @@ const Post = () => {
         <p>{state.body}</p>
       </div>
       <button onClick={deletePost}>Delete</button>
-      <button>EDIT</button>
+      <button onClick={editPost}>EDIT</button>
       <div>
         <h1>Comments</h1>
         <Comments id={id} />
