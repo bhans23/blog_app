@@ -14,7 +14,6 @@ const Post = () => {
     created: "",
     updated: "",
     user: "",
-    createComment: false
   });
   const navigate = useNavigate();
   const location = useLocation();
@@ -32,7 +31,7 @@ const Post = () => {
         user: post.user.display_name,
       });
     });
-  }, [state.createComment]);
+  }, [state]);
 
   const deletePost = () => {
     axios
@@ -46,10 +45,8 @@ const Post = () => {
       });
   };
   const editPost = () => {
-    navigate("/blog/editPost", {state: {id: id}});
-    
+    navigate("/blog/editPost", { state: { id: id } });
   };
-  
 
   return (
     <>
@@ -62,15 +59,11 @@ const Post = () => {
       </div>
       <button onClick={deletePost}>Delete</button>
       <button onClick={editPost}>EDIT</button>
-      <button onClick={()=>setState({...state,createComment: true})}>Comment</button>
-      {state.createComment ? (
-        <>
-        <CreateComment id={id}/>
-        <button onClick={()=>setState({...state,createComment: false})}>Cancel</button>
-        </>
-      ):(
-        <></>
-      )}
+
+      <>
+        <CreateComment id={id}  />
+      </>
+
       <div>
         <h1>Comments</h1>
         <Comments id={id} />

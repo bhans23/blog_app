@@ -4,10 +4,11 @@ import Comment from "./comment.js";
 
 const POSTS_URL = "/posts";
 
-const Comments = ({ id }) => {
+const Comments = ({ id}) => {
   const [comments, setComments] = useState([]);
   const [page,setPage] = useState(1)
   const [range,setRange] = useState('')
+ 
 
   useEffect(() => {
     axios.get(`${POSTS_URL}/${id}/comments?page=${page}`).then((response) => {
@@ -17,7 +18,7 @@ const Comments = ({ id }) => {
       setRange(range)
       
     });
-  }, [page]);
+  });
 
   return (
     <>
