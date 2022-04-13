@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import convertDate from "../api/convertDate.js";
 
 const Comment = ({ cmt }) => {
   const [state, setState] = useState({
@@ -11,7 +12,7 @@ const Comment = ({ cmt }) => {
   return (
     <>
       <p>{state.user}</p>
-      <p>{state.created}</p>
+      <p>{convertDate(state.created)}</p>
       <p>{state.content}</p>
       <br/>
     </>

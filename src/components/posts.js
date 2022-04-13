@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "../api/axios.js";
-import Post from "./post.js";
+import convertDate from "../api/convertDate.js";
+
 
 import { Link, Routes, Route, useLocation } from "react-router-dom";
 
@@ -57,7 +58,7 @@ const MyPost = () => {
       return <></>;
     }
   };
-
+  
   return (
     <div>
       <br />
@@ -70,8 +71,8 @@ const MyPost = () => {
           <Link to="post" state={{ id: post.id, from: location }}>
             Title: {post.title}
           </Link>
-          <p>Date Created: {Date(post.created_at)}</p>
-          <p>Date Updated: {Date(post.updated_at)}</p>
+          <p>Date Created: {convertDate(post.created_at)}</p>
+          <p>Date Updated: {convertDate(post.updated_at)}</p>
         </div>
       ))}
 

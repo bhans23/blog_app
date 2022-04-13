@@ -3,6 +3,7 @@ import { useLocation, Navigate, useNavigate } from "react-router-dom";
 import axios from "../api/axios.js";
 import Comments from "./comments.js";
 import CreateComment from "./createComment.js";
+import convertDate from "../api/convertDate.js";
 
 const POSTS_URL = "/posts";
 
@@ -26,8 +27,8 @@ const Post = () => {
         ...state,
         title: post.title,
         body: post.body,
-        created: Date(post.created_at),
-        updated: Date(post.updated_at),
+        created: post.created_at,
+        updated: post.updated_at,
         user: post.user.display_name,
       });
     });
@@ -48,14 +49,15 @@ const Post = () => {
     navigate("/blog/editPost", {state: {id: id}});
     
   };
+  
 
   return (
     <>
       <div>
         <h1>{state.title}</h1>
         <p>Created by:{state.user}</p>
-        <p>Created:{state.created}</p>
-        <p>Updated{state.updated}</p>
+        <p>Created: {convertDate(state.created)}</p>
+        <p>Updated: {convertDate(state.updated)}</p>
         <p>{state.body}</p>
       </div>
       <button onClick={deletePost}>Delete</button>
