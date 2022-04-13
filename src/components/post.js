@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useLocation, Navigate, useNavigate } from "react-router-dom";
 import axios from "../api/axios.js";
 import Comments from "./comments.js";
+import CreateComment from "./createComment.js";
 
 const POSTS_URL = "/posts";
 
@@ -12,6 +13,7 @@ const Post = () => {
     created: "",
     updated: "",
     user: "",
+    createComment: false
   });
   const navigate = useNavigate();
   const location = useLocation();
@@ -29,7 +31,7 @@ const Post = () => {
         user: post.user.display_name,
       });
     });
-  }, []);
+  }, [state.createComment]);
 
   const deletePost = () => {
     axios
@@ -58,6 +60,15 @@ const Post = () => {
       </div>
       <button onClick={deletePost}>Delete</button>
       <button onClick={editPost}>EDIT</button>
+      <button onClick={()=>setState({...state,createComment: true})}>Comment</button>
+      {state.createComment ? (
+        <>
+        <CreateComment id={id}/>
+        <button onClick={()=>setState({...state,createComment: false})}>Cancel</button>
+        </>
+      ):(
+        <></>
+      )}
       <div>
         <h1>Comments</h1>
         <Comments id={id} />
