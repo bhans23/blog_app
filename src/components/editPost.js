@@ -60,7 +60,7 @@ const EditPost = () => {
     <Navigate to="../posts/post" state={{id: state.id}}/>
   ) : (
     <>
-    {console.log(state)}
+   
       <h1>Edit Post</h1>
 
       <form onSubmit={handleSubmit}>

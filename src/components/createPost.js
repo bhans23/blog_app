@@ -44,7 +44,6 @@ const CreatePost = () => {
     <Navigate to="../posts/post" state={{id: state.id}}/>
   ) : (
     <>
-    {console.log(state)}
       <h1>Create Post</h1>
 
       <form onSubmit={handleSubmit}>
