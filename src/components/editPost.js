@@ -1,4 +1,4 @@
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "../api/axios";
 
 import { useNavigate, Navigate, useLocation } from "react-router-dom";
@@ -10,7 +10,7 @@ const EditPost = () => {
     title: "",
     body: "",
     id: null,
-    response: false
+    response: false,
   });
 
   const navigate = useNavigate();
@@ -34,8 +34,7 @@ const EditPost = () => {
         }
       )
       .then((response) => {
-        
-        setState({ ...state, id: response.data.post.id,response: true });
+        setState({ ...state, id: response.data.post.id, response: true });
       });
     setState({
       title: "",
@@ -43,24 +42,21 @@ const EditPost = () => {
     });
   };
   useEffect(() => {
-
     axios.get(`${POSTS_URL}/${id}`).then((response) => {
       const { post } = response.data;
       setState({
         ...state,
         title: post.title,
         body: post.body,
-        id: post.id
-        
+        id: post.id,
       });
     });
   }, []);
 
   return state.response ? (
-    <Navigate to="../posts/post" state={{id: state.id}}/>
+    <Navigate to="../posts/post" state={{ id: state.id }} />
   ) : (
     <>
-   
       <h1>Edit Post</h1>
 
       <form onSubmit={handleSubmit}>

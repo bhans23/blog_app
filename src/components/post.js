@@ -19,7 +19,10 @@ const Post = () => {
   const location = useLocation();
   const { id } = location.state;
 
+ 
+
   useEffect(() => {
+   
     axios.get(`${POSTS_URL}/${id}`).then((response) => {
       const { post } = response.data;
       setState({
@@ -31,7 +34,7 @@ const Post = () => {
         user: post.user.display_name,
       });
     });
-  }, [state]);
+  });
 
   const deletePost = () => {
     axios

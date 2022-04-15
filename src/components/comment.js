@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import convertDate from "../api/convertDate.js";
+import EditComment from "./editComment.js";
 import axios from "../api/axios";
 
 const COMMENT_URL = "/comments";
@@ -24,24 +25,25 @@ const Comment = ({ cmt }) => {
     if (state.userId === parseInt(localStorage.getItem("userId"))) {
       return (
         <>
-          <button>Edit</button>
-          <button onClick={()=> deleteComment()}>Delete</button>
+          <p>{state.user}</p>
+          <p>{convertDate(state.created)}</p>
+          <EditComment cmtId={cmt.id} body={cmt.content} />
+          <button onClick={() => deleteComment()}>Delete</button>
         </>
       );
     } else {
-      return <></>;
+      return (
+        <>
+          <p>{state.user}</p>
+          <p>{convertDate(state.created)}</p>
+          <p>{state.content}</p>
+          <br />
+        </>
+      );
     }
   };
 
-  return (
-    <>
-      <p>{state.user}</p>
-      <p>{convertDate(state.created)}</p>
-      <p>{state.content}</p>
-      <br />
-      {userOptions()}
-    </>
-  );
+  return <>{userOptions()}</>;
 };
 
 export default Comment;
