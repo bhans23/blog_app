@@ -41,7 +41,7 @@ const CreateUser = () => {
   return (
     <div>
       <p>{state.errMsg}</p>
-      <h1>CreateUser</h1>
+      <h1>Create New Account</h1>
       <form onSubmit={handleSubmit}>
         <label htmlFor="email">Email</label>
         <br />

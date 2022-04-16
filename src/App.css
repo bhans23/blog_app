@@ -21,3 +21,7 @@ a {
   justify-content: center;
   flex-direction: column;
 }
+
+.home {
+  width:50%;
+}

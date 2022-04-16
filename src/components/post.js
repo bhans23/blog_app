@@ -19,10 +19,7 @@ const Post = () => {
   const location = useLocation();
   const { id } = location.state;
 
- 
-
   useEffect(() => {
-   
     axios.get(`${POSTS_URL}/${id}`).then((response) => {
       const { post } = response.data;
       setState({
@@ -64,7 +61,7 @@ const Post = () => {
       <button onClick={editPost}>EDIT</button>
 
       <>
-        <CreateComment id={id}  />
+        <CreateComment id={id} />
       </>
 
       <div>

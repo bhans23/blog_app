@@ -1,6 +1,9 @@
-import React, { useState, useRNameef, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "../api/axios";
 import { Link } from "react-router-dom";
+import { UserContext } from "../api/UserContext.js";
+import Button from "@mui/material/Button";
+import Paper from "@mui/material/Paper";
 
 const SIGNIN_URL = "/users/sign_in";
 
@@ -11,7 +14,7 @@ const SignIn = () => {
     errMsg: " ",
     success: false,
   });
-
+  const { user, setUser } = useContext(UserContext);
   useEffect(() => {
     setState({ ...state, errMsg: "" });
   }, [state.userName, state.password]);
@@ -29,13 +32,12 @@ const SignIn = () => {
         user: { email: state.email, password: state.password },
       })
       .then((response) => {
-        
         localStorage.setItem("token", response.headers.authorization);
         localStorage.setItem("userId", response.data.id);
         localStorage.setItem("display_name", response.data.display_name);
-        response
-          ? setState({ ...state, success: true })
-          : setState({ ...state, success: false });
+        setState({ ...state, userName: response.data.display_name });
+        // navigate("/")
+        response ? setUser(true) : setUser(false);
       })
       .catch((error) => {
         console.log(error);
@@ -44,14 +46,11 @@ const SignIn = () => {
 
   return (
     <>
-      {state.success ? (
-        <div>
-          <h1>Logged in Foo</h1>
-          {window.location.reload()}
-          <br />
-        </div>
+      {user ? (
+        <div></div>
       ) : (
         <div>
+          <Paper elevation={10}>
           <p className={state.errMsg ? "errmsg" : "offscreen"}>
             {state.errMsg}
           </p>
@@ -77,9 +76,16 @@ const SignIn = () => {
               onChange={handleChange}
             />
             <br />
-            <input type="submit" value="Submit" />
+            <Button type="submit" variant="contained" color="primary">
+              Submit
+            </Button>
+            {/* <input type="submit" value="Submit" /> */}
           </form>
-          <Link to="/createUser">Create User</Link>
+          <Button variant="contained" component={Link} to="/createUser">
+            New Account
+          </Button>
+          {/* <Link to="/createUser">New Account</Link> */}
+          </Paper>
         </div>
       )}
     </>
