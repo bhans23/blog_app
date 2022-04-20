@@ -3,7 +3,7 @@ import axios from "../api/axios";
 import { Link } from "react-router-dom";
 import { UserContext } from "../api/UserContext.js";
 import Button from "@mui/material/Button";
-
+import Alert from "@mui/material/Alert";
 
 const SIGNIN_URL = "/users/sign_in";
 
@@ -11,13 +11,14 @@ const SignIn = () => {
   const [state, setState] = useState({
     password: " ",
     userName: " ",
-    errMsg: " ",
+    err: false,
+    errMsg: "",
     success: false,
   });
   const { user, setUser } = useContext(UserContext);
-  useEffect(() => {
-    setState({ ...state, errMsg: "" });
-  }, [state.userName, state.password]);
+  // useEffect(() => {
+  //   setState({ ...state, errMsg: "" });
+  // }, [state.userName, state.password]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -40,7 +41,9 @@ const SignIn = () => {
         response ? setUser(true) : setUser(false);
       })
       .catch((error) => {
-        console.log(error);
+        if (error.response.status === 401) {
+          setState({ ...state, errMsg: error.response.data.error, err: true });
+        }
       });
   };
 
@@ -50,10 +53,14 @@ const SignIn = () => {
         <div></div>
       ) : (
         <div>
-         
-          <p className={state.errMsg ? "errmsg" : "offscreen"}>
-            {state.errMsg}
-          </p>
+          {state.err ? (
+            <div>
+              <Alert severity="error">{state.errMsg}</Alert>
+            </div>
+          ) : (
+            <></>
+          )}
+
           <form onSubmit={handleSubmit}>
             <h1>Sign In</h1>
             <label htmlFor="email">Email</label>
@@ -85,7 +92,6 @@ const SignIn = () => {
             New Account
           </Button>
           {/* <Link to="/createUser">New Account</Link> */}
-        
         </div>
       )}
     </>
