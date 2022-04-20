@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "../api/axios.js";
 import convertDate from "../api/convertDate.js";
+import Paper from "@mui/material/Paper";
 
 
 import { Link, Routes, Route, useLocation } from "react-router-dom";
@@ -64,16 +65,18 @@ const MyPost = () => {
       <br />
       {pagePrevButton()}
       {pageNextButton()}
-      <h1>My Posts</h1>
+      <h1>Posts</h1>
 
       {state.posts.map((post) => (
+        <Paper elevation={10}>
         <div className="title">
           <Link to="post" state={{ id: post.id, from: location }}>
-            Title: {post.title}
+           Post: {post.title}
           </Link>
           <p>Date Created: {convertDate(post.created_at)}</p>
           <p>Date Updated: {convertDate(post.updated_at)}</p>
         </div>
+        </Paper>
       ))}
 
       {pagePrevButton()}

@@ -3,7 +3,7 @@ import axios from "../api/axios";
 import { Link } from "react-router-dom";
 import { UserContext } from "../api/UserContext.js";
 import Button from "@mui/material/Button";
-import Paper from "@mui/material/Paper";
+
 
 const SIGNIN_URL = "/users/sign_in";
 
@@ -50,7 +50,7 @@ const SignIn = () => {
         <div></div>
       ) : (
         <div>
-          <Paper elevation={10}>
+         
           <p className={state.errMsg ? "errmsg" : "offscreen"}>
             {state.errMsg}
           </p>
@@ -85,7 +85,7 @@ const SignIn = () => {
             New Account
           </Button>
           {/* <Link to="/createUser">New Account</Link> */}
-          </Paper>
+        
         </div>
       )}
     </>

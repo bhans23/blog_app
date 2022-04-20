@@ -1,19 +1,21 @@
 .App {
   text-align: center;
-  /* display: flex;
+  align-items: center;
+  display: flex;
   justify-content: center;
-  flex-direction: column; */
-
-}
-
-a {
-  margin: 10px;
+  flex-direction: row;
+  /* height: 100vh; */
 }
 
 .title {
-  border-style: double;
+ 
   /* width:50%; */
   margin-bottom: 10px;
+  text-align: center;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
 }
 
 .titleBox {
@@ -22,6 +24,27 @@ a {
   flex-direction: column;
 }
 
-.home {
-  width:50%;
+.main {
+  width: 50%;
+  /* height: 100%; */
+}
+.main Button {
+  margin: 10px;
+}
+
+.nav Button {
+  margin: 10px;
+}
+
+.blog a {
+  margin: 10px;
+}
+
+.nav {
+  height: 5vh;
+  text-align: center;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
 }
