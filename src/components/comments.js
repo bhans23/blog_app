@@ -2,29 +2,31 @@ import { useState, useEffect } from "react";
 import axios from "../api/axios.js";
 import Comment from "./comment.js";
 
+
 const POSTS_URL = "/posts";
 
-const Comments = ({ id}) => {
+const Comments = ({ id }) => {
   const [comments, setComments] = useState([]);
-  const [page,setPage] = useState(1)
-  const [range,setRange] = useState('')
- 
+  const [page, setPage] = useState(1);
+  const [range, setRange] = useState("");
 
   useEffect(() => {
     axios.get(`${POSTS_URL}/${id}/comments?page=${page}`).then((response) => {
-        const range =
+      const range =
         response.data.meta.total_entries / response.data.meta.per_page;
       setComments(response.data.comments);
-      setRange(range)
-      
+      setRange(range);
     });
   });
 
   return (
     <>
- 
       {comments.map((comment) => (
-       <Comment cmt={comment}/>
+        <>
+         
+            <Comment cmt={comment} />
+         
+        </>
       ))}
     </>
   );

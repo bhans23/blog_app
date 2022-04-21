@@ -4,6 +4,11 @@ import axios from "../api/axios.js";
 import Comments from "./comments.js";
 import CreateComment from "./createComment.js";
 import convertDate from "../api/convertDate.js";
+import Card from "@mui/material/Card";
+import Button from "@mui/material/Button";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+
 
 const POSTS_URL = "/posts";
 
@@ -51,19 +56,35 @@ const Post = () => {
   return (
     <>
       <div>
-        <h1>{state.title}</h1>
-        <p>Created by:{state.user}</p>
-        <p>Created: {convertDate(state.created)}</p>
-        <p>Updated: {convertDate(state.updated)}</p>
-        <p>{state.body}</p>
+        <Card variant="outlined">
+          <div className="title">
+            <div className="titleBox">
+              <p>By: {state.user}</p>
+
+              <h2>"{state.title}"</h2>
+
+              <div>
+                <p>Posted: {convertDate(state.created)}</p>
+                <p>Modified: {convertDate(state.updated)}</p>
+              </div>
+            </div>
+            <hr />
+
+            <p>"{state.body}..."</p>
+          </div>
+
+          <Button onClick={deletePost}>
+            <DeleteForeverIcon />
+          </Button>
+          <Button onClick={editPost}>
+            <EditIcon />
+          </Button>
+
+          <>
+            <CreateComment id={id} />
+          </>
+        </Card>
       </div>
-      <button onClick={deletePost}>Delete</button>
-      <button onClick={editPost}>EDIT</button>
-
-      <>
-        <CreateComment id={id} />
-      </>
-
       <div>
         <h1>Comments</h1>
         <Comments id={id} />

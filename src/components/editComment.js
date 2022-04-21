@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react";
 import axios from "../api/axios";
+import EditIcon from "@mui/icons-material/Edit";
+import Button from "@mui/material/Button";
+import CancelIcon from "@mui/icons-material/Cancel";
 
 const COMMENT_URL = "/comments";
 
@@ -46,18 +49,20 @@ const EditComment = ({ cmtId, body }) => {
               {state.body}
             </textarea>
             <br />
-            <input type="submit" value="Submit" />
+            <Button type="submit" variant="contained" color="primary">
+              Submit
+            </Button>
           </form>
-          <button onClick={() => setState({ ...state, edit: false })}>
-            Cancel
-          </button>
+          <Button onClick={() => setState({ ...state, edit: false })}>
+            <CancelIcon />
+          </Button>
         </>
       ) : (
         <>
-         <p>{state.body}</p>
-        <button onClick={() => setState({ ...state, edit: true})}>
-            Edit
-          </button>
+          <p>{state.body}</p>
+          <Button onClick={() => setState({ ...state, edit: true })}>
+            <EditIcon />
+          </Button>
         </>
       )}
     </>

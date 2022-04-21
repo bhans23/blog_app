@@ -1,6 +1,8 @@
 import { useState } from "react";
 import axios from "../api/axios";
 import { useNavigate } from "react-router-dom";
+import AddCommentIcon from '@mui/icons-material/AddComment';
+import Button from "@mui/material/Button";
 
 const COMMENT_URL = "/comments";
 
@@ -62,14 +64,14 @@ const navigate = useNavigate()
             <br />
             <input type="submit" value="Submit" />
           </form>
-          <button onClick={() => setState({ ...state, create: false })}>
+          <Button onClick={() => setState({ ...state, create: false })}>
           Cancel
-        </button>
+        </Button>
         </>
       ) : (
-        <button onClick={() => setState({ ...state, create: true })}>
-          Comment
-        </button>
+        <Button onClick={() => setState({ ...state, create: true })}>
+          <AddCommentIcon/>
+        </Button>
       )}
     </>
   );

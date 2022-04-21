@@ -2,6 +2,10 @@ import { useState, useEffect } from "react";
 import convertDate from "../api/convertDate.js";
 import EditComment from "./editComment.js";
 import axios from "../api/axios";
+import Card from "@mui/material/Card";
+
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+import Button from "@mui/material/Button";
 
 const COMMENT_URL = "/comments";
 const Comment = ({ cmt }) => {
@@ -25,20 +29,29 @@ const Comment = ({ cmt }) => {
     if (state.userId === parseInt(localStorage.getItem("userId"))) {
       return (
         <>
-          <p>{state.user}</p>
-          <p>{convertDate(state.created)}</p>
-          <EditComment cmtId={cmt.id} body={cmt.content} />
-          <button onClick={() => deleteComment()}>Delete</button>
+          
+            <Card variant="outlined">
+              <p>By: {state.user}</p>
+              <p>Posted: {convertDate(state.created)}</p>
+              <EditComment cmtId={cmt.id} body={cmt.content} />
+              <Button onClick={() => deleteComment()}><DeleteForeverIcon/></Button>
+            </Card>
+         
         </>
       );
     } else {
       return (
-        <>
-          <p>{state.user}</p>
-          <p>{convertDate(state.created)}</p>
-          <p>{state.content}</p>
-          <br />
-        </>
+       
+          <Card variant="outlined">
+            <div className="comment">
+              <p>By: {state.user}</p>
+              <p>Posted: {convertDate(state.created)}</p>
+            </div>
+
+            <p>{state.content}</p>
+            <br />
+          </Card>
+       
       );
     }
   };

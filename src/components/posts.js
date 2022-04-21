@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "../api/axios.js";
 import convertDate from "../api/convertDate.js";
-import Paper from "@mui/material/Paper";
-
+import Button from "@mui/material/Button";
+import Card from "@mui/material/Card";
 
 import { Link, Routes, Route, useLocation } from "react-router-dom";
 
@@ -37,50 +37,76 @@ const MyPost = () => {
   const pagePrevButton = () => {
     if (state.currentPage > 1) {
       return (
-        <button onClick={() => setState({ ...state, page: --state.page })}>
+        <Button
+          variant="contained"
+          color="secondary"
+          onClick={() => setState({ ...state, page: --state.page })}
+        >
           &lt;--- Preivous Page
-        </button>
+        </Button>
       );
     } else {
       return <></>;
     }
   };
   const pageNextButton = () => {
-    if (state.currentPage <= state.range) {
+    if (state.currentPage < state.range) {
       return (
         <>
-          <p>Page {state.currentPage}</p>
-          <button onClick={() => setState({ ...state, page: ++state.page })}>
+          <Button
+            variant="contained"
+            color="secondary"
+            onClick={() => setState({ ...state, page: ++state.page })}
+          >
             Next Page ---&gt;
-          </button>
+          </Button>
         </>
       );
     } else {
       return <></>;
     }
   };
-  
+
   return (
     <div>
+      {console.log(state.range, state.currentPage)}
+
       <br />
-      {pagePrevButton()}
-      {pageNextButton()}
+      <p>Page {state.currentPage}</p>
+      <div className="pageNav">
+        {pagePrevButton()}
+
+        {pageNextButton()}
+      </div>
       <h1>Posts</h1>
 
       {state.posts.map((post) => (
-        <Paper elevation={10}>
-        <div className="title">
-          <Link to="post" state={{ id: post.id, from: location }}>
-           Post: {post.title}
-          </Link>
-          <p>Date Created: {convertDate(post.created_at)}</p>
-          <p>Date Updated: {convertDate(post.updated_at)}</p>
-        </div>
-        </Paper>
-      ))}
+        <div>
+          <Card variant="outlined">
+            <div className="title">
+              <div className="titleBox">
+                <p>By: {post.user.display_name}</p>
+                <Link to="post" state={{ id: post.id, from: location }}>
+                  <h2>"{post.title}"</h2>
+                </Link>
+                <div>
+                  <p>Posted: {convertDate(post.created_at)}</p>
+                  <p>Modified: {convertDate(post.updated_at)}</p>
+                </div>
+              </div>
+              <hr />
 
-      {pagePrevButton()}
-      {pageNextButton()}
+              <p>"{post.body.substring(0, 15)}..."</p>
+            </div>
+          </Card>
+        </div>
+      ))}
+      <p>Page {state.currentPage}</p>
+      <div className="pageNav">
+        {pagePrevButton()}
+
+        {pageNextButton()}
+      </div>
     </div>
   );
 };
