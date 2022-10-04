@@ -16,9 +16,6 @@ const SignIn = () => {
     success: false,
   });
   const { user, setUser } = useContext(UserContext);
-  // useEffect(() => {
-  //   setState({ ...state, errMsg: "" });
-  // }, [state.userName, state.password]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -88,7 +85,12 @@ const SignIn = () => {
             </Button>
             {/* <input type="submit" value="Submit" /> */}
           </form>
-          <Button variant="contained" component={Link} to="/createUser">
+          <Button
+            style={{ margin: "10px" }}
+            variant="contained"
+            component={Link}
+            to="/createUser"
+          >
             New Account
           </Button>
           {/* <Link to="/createUser">New Account</Link> */}

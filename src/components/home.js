@@ -8,7 +8,7 @@ const Home = () => {
   const { user, setUser } = useContext(UserContext);
 
   return (
-    <div className='home'>
+    <div>
       {user ? (
         <>
         <Blog/>

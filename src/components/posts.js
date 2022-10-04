@@ -68,12 +68,10 @@ const MyPost = () => {
   };
 
   return (
-    <div>
-      {console.log(state.range, state.currentPage)}
-
+    <div className="posts">
       <br />
       <p>Page {state.currentPage}</p>
-      <div className="pageNav">
+      <div>
         {pagePrevButton()}
 
         {pageNextButton()}
@@ -81,28 +79,26 @@ const MyPost = () => {
       <h1>Posts</h1>
 
       {state.posts.map((post) => (
-        <div>
+        <div className="postDisplay">
           <Card variant="outlined">
-            <div className="title">
-              <div className="titleBox">
-                <p>By: {post.user.display_name}</p>
-                <Link to="post" state={{ id: post.id, from: location }}>
-                  <h2>"{post.title}"</h2>
-                </Link>
-                <div>
-                  <p>Posted: {convertDate(post.created_at)}</p>
-                  <p>Modified: {convertDate(post.updated_at)}</p>
-                </div>
-              </div>
+            <div>
+              <Link to="post" state={{ id: post.id, from: location }}>
+                <h2>"{post.title}"</h2>
+              </Link>
               <hr />
-
               <p>"{post.body.substring(0, 15)}..."</p>
+              <div className="userDataPostDisplay">
+                <p>By: {post.user.display_name}</p>
+
+                <p className="smallText">Posted: {convertDate(post.created_at)}</p>
+                <p className="smallText">Modified: {convertDate(post.updated_at)}</p>
+              </div>
             </div>
           </Card>
         </div>
       ))}
       <p>Page {state.currentPage}</p>
-      <div className="pageNav">
+      <div>
         {pagePrevButton()}
 
         {pageNextButton()}

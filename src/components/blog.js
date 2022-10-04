@@ -11,7 +11,7 @@ const Blog = () => {
   return (
     <>
       {token ? (
-        <div className="blog">
+        <div >
           <h1>Blog</h1>
 
           <Button className="button" variant="contained" component={Link} to="createPost">
@@ -23,7 +23,6 @@ const Blog = () => {
           <Routes>
             <Route path="createPost" element={<CreatePost />} />
             <Route path="editPost" element={<EditPost />} />
-
             <Route path="posts" element={<Posts />} />
             <Route path="/posts/post" element={<Post />} />
           </Routes>

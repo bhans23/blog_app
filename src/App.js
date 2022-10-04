@@ -12,26 +12,24 @@ import Paper from "@mui/material/Paper";
 function App() {
   const [user, setUser] = useState(false);
   return (
-    <div className="App">
-      <div className="main">
-        <UserContext.Provider value={{ user, setUser }}>
+    <div className="mainApp">
+      <UserContext.Provider value={{ user, setUser }}>
         <Paper elevation={10}>
           <div className="nav">
-           
-              <Nav />
-            
+            <Nav />
           </div>
-          </Paper>
-          <Paper elevation={10}>
+        </Paper>
+        <Paper elevation={10}>
+          <div className="App">
             <Routes>
               <Route path="*" element={<Home />} />
               <Route path="/signIn" element={<SignIn />} />
               <Route path="/createUser" element={<CreateUser />} />
               <Route path="/blog/*" element={<Blog />} />
             </Routes>
-          </Paper>
-        </UserContext.Provider>
-      </div>
+          </div>
+        </Paper>
+      </UserContext.Provider>
     </div>
   );
 }

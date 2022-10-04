@@ -1,10 +1,27 @@
-html,
-body {
-  margin: 0;
-}
 * {
   box-sizing: border-box;
   margin: 0;
+}
+body {
+
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+
+.mainApp {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
 .App {
@@ -12,78 +29,19 @@ body {
   align-items: center;
   display: flex;
   justify-content: center;
-  flex-direction: row;
-  /* height: 100vh; */
-}
-
-.title {
-  width: 100%;
-  margin-bottom: 10px;
-  text-align: center;
-  align-items: center;
-  display: flex;
-  justify-content: center;
   flex-direction: column;
+  width: 50vw;
 }
 
-.titleBox {
-  display: flex;
-  justify-content: space-between;
-  flex-direction: row;
-  width: 100%;
-  padding: 10px;
+
+.posts{
+  width:50vw;
 }
 
-.comment {
-  display: flex;
-  justify-content: space-evenly;
-  flex-direction: row;
-  width: 100%;
-  padding: 10px;
+.userDataPostDisplay{
+display:flex;
 }
-.comBox {
-  align-items: center;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-}
-
-.main {
-  width: 50%;
-  /* height: 100%; */
-}
-.main Button {
-  margin: 10px;
-}
-
-.nav Button {
-  margin: 10px;
-}
-
-.blog a {
-  margin: 10px;
-}
-
-.nav {
-  height: 5vh;
-  text-align: center;
-  align-items: center;
-  display: flex;
-  justify-content: center;
-  flex-direction: row;
-}
-
-hr {
-  border: 0;
-  clear: both;
-  display: block;
-  width: 50%;
-  background-color: #797977;
-  height: 1px;
-}
-
-.pageNav{
-  display:flex;
-  flex-direction: row;
-  justify-content: space-evenly;
+.smallText{
+  font-size:10pt;
+ 
 }

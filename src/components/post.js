@@ -57,8 +57,8 @@ const Post = () => {
     <>
       <div>
         <Card variant="outlined">
-          <div className="title">
-            <div className="titleBox">
+          <div >
+            <div>
               <p>By: {state.user}</p>
 
               <h2>"{state.title}"</h2>
